@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-lotus-pink: #ec4899; /* Tailwind pink-500 */
+  --color-lotus-dark: #0f172a; /* Tailwind slate-900 */
+  --color-lotus-light: #f8fafc; /* Tailwind slate-50 */
+}
+
+body {
+  background-color: var(--color-lotus-light);
+  color: var(--color-lotus-dark);
+}
