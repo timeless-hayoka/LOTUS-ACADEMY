@@ -18,7 +18,7 @@ export default function Auth() {
       if (isSignUp) {
         const { error } = await supabase.auth.signUp({ email, password });
         if (error) throw error;
-        setMessage({ type: 'success', text: 'Check your email for the confirmation link, Sir.' });
+        setMessage({ type: 'success', text: 'Check your email for the confirmation link.' });
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -38,8 +38,8 @@ export default function Auth() {
           <div className="w-16 h-16 bg-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-pink-200">
             <Lock className="text-white" size={32} />
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">{isSignUp ? 'Create Your Lotus Identity' : 'Welcome Back, Sir'}</h2>
-          <p className="text-sm text-slate-500 mt-2">Secure your progress and labs.</p>
+          <h2 className="text-2xl font-bold text-slate-900">{isSignUp ? 'Create Your Lotus Identity' : 'Welcome Back'}</h2>
+          <p className="text-sm text-slate-500 mt-2">Keep your progress safe and pick up where you left off.</p>
         </div>
 
         {message && (
@@ -80,7 +80,7 @@ export default function Auth() {
             disabled={isLoading}
           >
             {isLoading ? <Loader2 className="animate-spin" size={20} /> : (isSignUp ? <UserPlus size={20} /> : <LogIn size={20} />)}
-            {isSignUp ? 'Initialize Identity' : 'Establish Connection'}
+            {isSignUp ? 'Create Account' : 'Sign In'}
           </button>
         </form>
 

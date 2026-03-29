@@ -1,10 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { osData, type OSEntry } from '../data/os_data';
 import { Command, Info } from 'lucide-react';
 import FileSystemExplorer from './FileSystemExplorer';
+import { getOSProgress, saveOSProgress } from '../lib/progress';
 
 export default function OSModule() {
   const [selectedOS, setSelectedOS] = useState<OSEntry>(osData[0]);
+  const [exploredOS, setExploredOS] = useState<string[]>([]);
+
+  useEffect(() => {
+    setExploredOS(getOSProgress());
+  }, []);
+
+  const handleSelectOS = (os: OSEntry) => {
+    setSelectedOS(os);
+    if (!exploredOS.includes(os.id)) {
+      const updated = [...exploredOS, os.id];
+      setExploredOS(updated);
+      saveOSProgress(updated);
+    }
+  };
 
   return (
     <div className="p-8 max-w-[1600px] mx-auto flex flex-col h-[calc(100vh-4rem)]">
@@ -18,7 +33,7 @@ export default function OSModule() {
         {osData.map(os => (
           <button
             key={os.id}
-            onClick={() => setSelectedOS(os)}
+            onClick={() => handleSelectOS(os)}
             className={`px-8 py-2.5 rounded-2xl font-black transition-all active:scale-95 ${
               selectedOS.id === os.id 
                 ? 'bg-slate-900 text-white shadow-xl shadow-slate-200' 
@@ -46,7 +61,7 @@ export default function OSModule() {
           <div className="bg-slate-900 p-8 rounded-[2.5rem] text-slate-300 shadow-2xl">
             <h3 className="text-white font-black mb-8 flex items-center gap-2 tracking-widest text-xs uppercase">
               <Command size={16} className="text-pink-500" />
-              Tactical Commands
+              Essential Commands
             </h3>
             <div className="space-y-5">
               {selectedOS.keyCommands.map((item, i) => (

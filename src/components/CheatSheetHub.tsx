@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileText, Copy, Check, Search, ExternalLink } from 'lucide-react';
+import { getCheatSheetsProgress, saveCheatSheetsProgress } from '../lib/progress';
 
 interface CheatSheet {
   title: string;
@@ -15,7 +16,9 @@ const cheatSheets: CheatSheet[] = [
       { label: 'Permissions', cmd: 'chmod 755 <file>', desc: 'Sets rwxr-xr-x permissions.' },
       { label: 'Owner', cmd: 'chown user:group <file>', desc: 'Changes file ownership.' },
       { label: 'Processes', cmd: 'ps aux | grep <name>', desc: 'Finds a running process.' },
-      { label: 'Disk Space', cmd: 'df -h', desc: 'Shows human-readable disk usage.' }
+      { label: 'Disk Space', cmd: 'df -h', desc: 'Shows human-readable disk usage.' },
+      { label: 'Find Files', cmd: 'find / -name "*.txt"', desc: 'Recursively search for files.' },
+      { label: 'Grep Search', cmd: 'grep -ri "password" ./', desc: 'Search text inside files.' }
     ]
   },
   {
@@ -25,7 +28,9 @@ const cheatSheets: CheatSheet[] = [
       { label: 'Fast Scan', cmd: 'nmap -F <target>', desc: 'Scans the 100 most common ports.' },
       { label: 'Service Info', cmd: 'nmap -sV <target>', desc: 'Determines service/version info.' },
       { label: 'Full Port Scan', cmd: 'nmap -p- <target>', desc: 'Scans all 65,535 TCP ports.' },
-      { label: 'Stealth Scan', cmd: 'nmap -sS <target>', desc: 'TCP SYN scan (half-open).' }
+      { label: 'Stealth Scan', cmd: 'nmap -sS <target>', desc: 'TCP SYN scan (half-open).' },
+      { label: 'OS Detection', cmd: 'nmap -O <target>', desc: 'Attempts to fingerprint the OS.' },
+      { label: 'Aggressive Scan', cmd: 'nmap -A <target>', desc: 'Enables OS detection, version detection, script scanning, and traceroute.' }
     ]
   },
   {
@@ -34,7 +39,70 @@ const cheatSheets: CheatSheet[] = [
     content: [
       { label: 'Base64 Encode', cmd: 'base64.b64encode(b"text")', desc: 'Encodes text to base64.' },
       { label: 'SHA256 Hash', cmd: 'hashlib.sha256(b"text").hexdigest()', desc: 'Creates a secure hash.' },
-      { label: 'Port Check', cmd: 'sock.connect_ex((ip, port))', desc: 'Returns 0 if port is open.' }
+      { label: 'Port Check', cmd: 'sock.connect_ex((ip, port))', desc: 'Returns 0 if port is open.' },
+      { label: 'HTTP GET', cmd: 'requests.get(url)', desc: 'Makes an HTTP GET request.' },
+      { label: 'Regex Match', cmd: 're.search(pattern, text)', desc: 'Searches for a pattern in text.' },
+      { label: 'JSON Parse', cmd: 'json.loads(data)', desc: 'Parses a JSON string into a Python dict.' }
+    ]
+  },
+  {
+    title: 'Git Quick Ref',
+    category: 'Dev',
+    content: [
+      { label: 'Clone Repo', cmd: 'git clone <url>', desc: 'Download a remote repository.' },
+      { label: 'Check Status', cmd: 'git status', desc: 'See current changes and branch.' },
+      { label: 'Stage Changes', cmd: 'git add .', desc: 'Stage all modified files.' },
+      { label: 'Commit', cmd: 'git commit -m "msg"', desc: 'Save staged changes locally.' },
+      { label: 'Push', cmd: 'git push origin main', desc: 'Upload commits to remote.' },
+      { label: 'Pull', cmd: 'git pull origin main', desc: 'Download latest remote changes.' }
+    ]
+  },
+  {
+    title: 'Bash Scripting',
+    category: 'OS',
+    content: [
+      { label: 'For Loop', cmd: 'for i in {1..10}; do echo $i; done', desc: 'Iterate over a range.' },
+      { label: 'If Statement', cmd: 'if [ -f file.txt ]; then echo exists; fi', desc: 'Check if file exists.' },
+      { label: 'Variable', cmd: 'NAME="value"; echo $NAME', desc: 'Assign and use a variable.' },
+      { label: 'Pipe Output', cmd: 'cat file | grep text', desc: 'Send output of one command to another.' },
+      { label: 'Background Job', cmd: 'command &', desc: 'Run a command in the background.' },
+      { label: 'Redirect to File', cmd: 'command > output.txt', desc: 'Save command output to a file.' }
+    ]
+  },
+  {
+    title: 'Metasploit Quick Ref',
+    category: 'Cyber',
+    content: [
+      { label: 'Start Console', cmd: 'msfconsole', desc: 'Launch the Metasploit framework.' },
+      { label: 'Search Modules', cmd: 'search eternalblue', desc: 'Find exploits and payloads.' },
+      { label: 'Use Module', cmd: 'use exploit/...', desc: 'Select a module to configure.' },
+      { label: 'Set Options', cmd: 'set RHOSTS 192.168.1.1', desc: 'Configure module parameters.' },
+      { label: 'Run Exploit', cmd: 'exploit', desc: 'Execute the selected module.' },
+      { label: 'Meterpreter Shell', cmd: 'sessions -i 1', desc: 'Interact with a session.' }
+    ]
+  },
+  {
+    title: 'Wireshark Filters',
+    category: 'Cyber',
+    content: [
+      { label: 'HTTP Only', cmd: 'http', desc: 'Show only HTTP traffic.' },
+      { label: 'DNS Queries', cmd: 'dns', desc: 'Filter for DNS packets.' },
+      { label: 'Specific IP', cmd: 'ip.addr == 192.168.1.1', desc: 'Show traffic to/from an IP.' },
+      { label: 'TCP Port', cmd: 'tcp.port == 80', desc: 'Filter by TCP port number.' },
+      { label: 'GET Requests', cmd: 'http.request.method == "GET"', desc: 'Show only HTTP GET requests.' },
+      { label: 'Contains String', cmd: 'tcp contains "password"', desc: 'Find packets containing text.' }
+    ]
+  },
+  {
+    title: 'Docker Basics',
+    category: 'Dev',
+    content: [
+      { label: 'Run Container', cmd: 'docker run -d -p 80:80 nginx', desc: 'Run Nginx in detached mode.' },
+      { label: 'List Running', cmd: 'docker ps', desc: 'Show active containers.' },
+      { label: 'Stop Container', cmd: 'docker stop <id>', desc: 'Stop a running container.' },
+      { label: 'Remove Container', cmd: 'docker rm <id>', desc: 'Delete a stopped container.' },
+      { label: 'Build Image', cmd: 'docker build -t myapp .', desc: 'Build an image from a Dockerfile.' },
+      { label: 'Exec into Container', cmd: 'docker exec -it <id> bash', desc: 'Open a shell inside a container.' }
     ]
   }
 ];
@@ -42,16 +110,27 @@ const cheatSheets: CheatSheet[] = [
 export default function CheatSheetHub() {
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [copiedItems, setCopiedItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    setCopiedItems(getCheatSheetsProgress());
+  }, []);
 
   const copyToClipboard = (cmd: string) => {
     navigator.clipboard.writeText(cmd);
     setCopiedCmd(cmd);
     setTimeout(() => setCopiedCmd(null), 2000);
+    if (!copiedItems.includes(cmd)) {
+      const updated = [...copiedItems, cmd];
+      setCopiedItems(updated);
+      saveCheatSheetsProgress(updated);
+    }
   };
 
   const filteredSheets = cheatSheets.filter(sheet => 
     sheet.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    sheet.category.toLowerCase().includes(searchTerm.toLowerCase())
+    sheet.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    sheet.content.some(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
@@ -130,6 +209,13 @@ export default function CheatSheetHub() {
           </div>
         ))}
       </div>
+
+      {filteredSheets.length === 0 && (
+        <div className="text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200 mt-8">
+          <FileText size={48} className="mx-auto text-slate-300 mb-4" />
+          <p className="text-slate-500 font-medium">No cheat sheets match your search.</p>
+        </div>
+      )}
     </div>
   );
 }
