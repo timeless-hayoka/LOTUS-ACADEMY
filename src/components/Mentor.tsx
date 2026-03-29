@@ -10,7 +10,7 @@ interface Message {
 
 export default function Mentor() {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'bot', content: 'Hello! I am the Lotus Mentor. I can help you understand code syntax, explain complex commands, or help you through a tough lab. What are we working on today?' }
+    { role: 'bot', content: 'Hi there! I am your Lotus learning buddy. I can help explain code, break down tricky commands, or walk you through a lab. What are we working on today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,7 @@ export default function Mentor() {
         setTimeout(() => {
           setMessages(prev => [...prev, { 
             role: 'bot', 
-            content: `[Simulation Mode] I see you're asking about: "${userMsg}". Please set VITE_GEMINI_API_KEY to enable real-time wisdom.` 
+            content: `[Demo Mode] I see you're asking about: "${userMsg}". Add a VITE_GEMINI_API_KEY to unlock the full mentor experience.` 
           }]);
           setIsLoading(false);
         }, 1000);
@@ -55,7 +55,7 @@ export default function Mentor() {
         contents: `${LOTUS_MENTOR_SYSTEM_PROMPT}\n\nStudent: ${userMsg}\nMentor:`
       });
       
-      const botResponse = response.text || "I am speechless. The machine returned no wisdom.";
+      const botResponse = response.text || "Hmm, I didn't get a response. Let's try again?";
 
       setMessages(prev => [...prev, { role: 'bot', content: botResponse }]);
       speak(botResponse);
@@ -75,10 +75,10 @@ export default function Mentor() {
         </div>
         <div className="flex-1">
           <h2 className="text-2xl font-bold text-slate-900">Lotus Mentor</h2>
-          <p className="text-sm text-slate-500 font-medium">AI-Powered Wisdom for the Next Generation</p>
+          <p className="text-sm text-slate-500 font-medium">Here to help you learn, one question at a time</p>
         </div>
         <button 
-          onClick={() => setMessages([{ role: 'bot', content: 'Chat cleared. How else can I help you, Sir?' }])}
+          onClick={() => setMessages([{ role: 'bot', content: 'Chat cleared. What would you like to explore next?' }])}
           className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
           title="Clear Chat"
         >
@@ -91,8 +91,8 @@ export default function Mentor() {
         <div className="mb-6 p-4 bg-amber-50 border border-amber-100 rounded-2xl flex items-start gap-3 text-amber-800 text-xs animate-pulse">
           <AlertCircle size={16} className="mt-0.5" />
           <div>
-            <p className="font-bold uppercase tracking-tight">Vocal Protocols Limited</p>
-            <p className="mt-1 opacity-80 font-medium">Gemini API Key is missing. I am currently operating in simulation mode.</p>
+            <p className="font-bold uppercase tracking-tight">Voice Mode Unavailable</p>
+            <p className="mt-1 opacity-80 font-medium">Gemini API Key is missing, so I'm running in demo mode right now.</p>
           </div>
         </div>
       )}
@@ -121,7 +121,7 @@ export default function Mentor() {
           <div className="flex justify-start">
             <div className="bg-white border border-slate-100 p-4 rounded-2xl rounded-tl-none flex items-center gap-2">
               <Loader2 className="animate-spin text-pink-500" size={16} />
-              <span className="text-xs text-slate-400 font-medium italic">Lotus is thinking...</span>
+              <span className="text-xs text-slate-400 font-medium italic">Thinking...</span>
             </div>
           </div>
         )}

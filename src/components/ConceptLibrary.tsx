@@ -1,9 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { codingTheology, type Lesson } from '../data/coding_theology';
 import { Sparkles, X, Terminal, ChevronRight } from 'lucide-react';
+import { getConceptsProgress, saveConceptsProgress } from '../lib/progress';
 
 export default function ConceptLibrary() {
   const [selectedConcept, setSelectedConcept] = useState<Lesson | null>(null);
+  const [viewedConcepts, setViewedConcepts] = useState<string[]>([]);
+
+  useEffect(() => {
+    setViewedConcepts(getConceptsProgress());
+  }, []);
+
+  const handleSelectConcept = (concept: Lesson) => {
+    setSelectedConcept(concept);
+    if (!viewedConcepts.includes(concept.id)) {
+      const updated = [...viewedConcepts, concept.id];
+      setViewedConcepts(updated);
+      saveConceptsProgress(updated);
+    }
+  };
 
   return (
     <div className="mt-12">
@@ -16,7 +31,7 @@ export default function ConceptLibrary() {
         {codingTheology.map((concept) => (
           <div 
             key={concept.id}
-            onClick={() => setSelectedConcept(concept)}
+            onClick={() => handleSelectConcept(concept)}
             className="group cursor-pointer bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-pink-200 transition-all active:scale-95"
           >
             <div className="flex items-center justify-between mb-4">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Terminal as TerminalIcon, HelpCircle } from 'lucide-react';
 import { useLotus } from '../context/LotusContext';
 import { useNavigate } from 'react-router-dom';

@@ -1,23 +1,36 @@
 import { useState, useEffect } from 'react';
 import TerminalSimulator from './TerminalSimulator';
-import { Shield, CheckCircle2, Info, PlayCircle, FileDown, Search } from 'lucide-react';
+import { Shield, CheckCircle2, Info, PlayCircle, FileDown, Search, Sparkles } from 'lucide-react';
 import { gdriveService, type LotusAsset } from '../services/gdrive';
 import { cyberLabs, type Lab } from '../data/cyber_labs';
+import { getLabsProgress, saveLabsProgress } from '../lib/progress';
+
+const firstBeginnerLab = cyberLabs.find(l => l.difficulty === 'beginner') || cyberLabs[0];
 
 export default function Labs() {
-  const [selectedLab, setSelectedLab] = useState<Lab>(cyberLabs[0]);
+  const [selectedLab, setSelectedLab] = useState<Lab>(firstBeginnerLab);
   const [activeStep, setActiveStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [assets, setAssets] = useState<LotusAsset[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState<string>('all');
+  const [filterDifficulty, setFilterDifficulty] = useState<string>('all');
 
   useEffect(() => {
     gdriveService.getAssets('labs').then(setAssets);
+    const progress = getLabsProgress();
+    setCompletedSteps(progress[firstBeginnerLab.id] || []);
   }, []);
+
+  useEffect(() => {
+    const progress = getLabsProgress();
+    setCompletedSteps(progress[selectedLab.id] || []);
+    setActiveStep(0);
+  }, [selectedLab]);
 
   const filteredLabs = cyberLabs.filter(lab => 
     (filterCategory === 'all' || lab.category === filterCategory) &&
+    (filterDifficulty === 'all' || lab.difficulty === filterDifficulty) &&
     lab.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -25,7 +38,11 @@ export default function Labs() {
     const currentStep = selectedLab.steps[activeStep];
     if (currentStep && cmd.toLowerCase().trim() === currentStep.expected) {
       if (!completedSteps.includes(activeStep)) {
-        setCompletedSteps([...completedSteps, activeStep]);
+        const newCompleted = [...completedSteps, activeStep];
+        setCompletedSteps(newCompleted);
+        const progress = getLabsProgress();
+        progress[selectedLab.id] = newCompleted;
+        saveLabsProgress(progress);
         if (activeStep < selectedLab.steps.length - 1) {
           setActiveStep(activeStep + 1);
         }
@@ -36,8 +53,6 @@ export default function Labs() {
 
   const handleLabSelect = (lab: Lab) => {
     setSelectedLab(lab);
-    setActiveStep(0);
-    setCompletedSteps([]);
   };
 
   return (
@@ -55,7 +70,7 @@ export default function Labs() {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-3">
             {['all', 'linux', 'python', 'network', 'web', 'crypto'].map(cat => (
               <button 
                 key={cat}
@@ -65,6 +80,19 @@ export default function Labs() {
                 }`}
               >
                 {cat}
+              </button>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {['all', 'beginner', 'intermediate', 'advanced'].map(diff => (
+              <button 
+                key={diff}
+                onClick={() => setFilterDifficulty(diff)}
+                className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all ${
+                  filterDifficulty === diff ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-slate-200'
+                }`}
+              >
+                {diff}
               </button>
             ))}
           </div>
@@ -83,13 +111,20 @@ export default function Labs() {
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-black uppercase text-indigo-500">{lab.category}</span>
-                <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
-                  lab.difficulty === 'beginner' ? 'bg-green-100 text-green-700' :
-                  lab.difficulty === 'intermediate' ? 'bg-orange-100 text-orange-700' :
-                  'bg-red-100 text-red-700'
-                }`}>
-                  {lab.difficulty}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  {lab.featured && lab.difficulty === 'beginner' && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded font-bold uppercase bg-emerald-100 text-emerald-700 flex items-center gap-0.5">
+                      <Sparkles size={9} /> Start Here
+                    </span>
+                  )}
+                  <span className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
+                    lab.difficulty === 'beginner' ? 'bg-green-100 text-green-700' :
+                    lab.difficulty === 'intermediate' ? 'bg-orange-100 text-orange-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {lab.difficulty}
+                  </span>
+                </div>
               </div>
               <h4 className="text-sm font-bold text-slate-800 leading-tight">{lab.title}</h4>
             </div>
@@ -104,7 +139,14 @@ export default function Labs() {
             <Shield size={120} />
           </div>
           <div className="relative z-10">
-            <h2 className="text-3xl font-black text-slate-900 mb-4">{selectedLab.title}</h2>
+            <div className="flex items-start justify-between gap-4 mb-4">
+              <h2 className="text-3xl font-black text-slate-900">{selectedLab.title}</h2>
+              {selectedLab.featured && selectedLab.difficulty === 'beginner' && (
+                <span className="shrink-0 mt-1.5 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold uppercase bg-emerald-100 text-emerald-700">
+                  <Sparkles size={12} /> Start Here
+                </span>
+              )}
+            </div>
             <div className="flex items-center gap-2 text-slate-500 mb-6 font-medium">
               <span className="flex items-center gap-1"><Info size={16} /> Objective:</span>
               <span>{selectedLab.objective}</span>

