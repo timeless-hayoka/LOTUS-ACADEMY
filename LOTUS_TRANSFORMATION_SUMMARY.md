@@ -19,7 +19,7 @@ Before writing any code, we defined 30 development skills that separate projects
 **Polish:** Visual consistency, responsive awareness, color psychology, microcopy mastery, accessibility baseline.  
 **Shipping:** Build-first verification, smoke testing, error boundary strategy, performance budgeting, ship mentality.
 
-*See the full list in `/home/crex/lotus/LOTUS_DEV_SKILLS.md`*
+*See the full list in `LOTUS_DEV_SKILLS.md` (maintain a copy alongside this project if needed).*
 
 ---
 
@@ -134,7 +134,7 @@ We used 3 parallel agents to transform the user experience:
 ## How to Run It
 
 ```bash
-cd /home/crex/lotus
+cd /path/to/LOTUS-ACADEMY
 npm install
 npm run build
 npm run dev
