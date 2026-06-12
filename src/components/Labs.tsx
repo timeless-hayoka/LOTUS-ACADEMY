@@ -36,7 +36,7 @@ export default function Labs() {
 
   const handleCommand = (cmd: string) => {
     const currentStep = selectedLab.steps[activeStep];
-    if (currentStep && cmd.toLowerCase().trim() === currentStep.expected) {
+    if (currentStep && cmd.toLowerCase().trim() === currentStep.expected.toLowerCase().trim()) {
       if (!completedSteps.includes(activeStep)) {
         const newCompleted = [...completedSteps, activeStep];
         setCompletedSteps(newCompleted);
@@ -47,6 +47,7 @@ export default function Labs() {
           setActiveStep(activeStep + 1);
         }
       }
+      return currentStep.output || `[OK] Command "${currentStep.expected}" complete.`;
     }
     return '';
   };

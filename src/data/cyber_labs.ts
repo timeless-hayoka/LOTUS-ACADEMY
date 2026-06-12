@@ -7,11 +7,65 @@ export interface Lab {
   tools: string[];
   objective: string;
   scenario: string;
-  steps: { task: string; expected: string; hint?: string }[];
+  steps: { task: string; expected: string; hint?: string; output?: string }[];
 }
 
 export const cyberLabs: Lab[] = [
   // --- BEGINNER ---
+  {
+    id: 'linux-0',
+    title: 'Terminal Power & sudo',
+    category: 'linux',
+    difficulty: 'beginner',
+    featured: true,
+    tools: ['bash', 'echo', 'pwd', 'ls', 'apt', 'sudo', 'cmatrix'],
+    objective: 'Interact with the machine, inspect permissions, find the matrix package, elevate privileges, and execute cmatrix.',
+    scenario: 'You are sitting in front of a raw machine. Elevate your privileges and alter the environment to run the falling green code.',
+    steps: [
+      { 
+        task: 'Pulse Check: Speak to the machine to see if it is awake. Tell it to say hello back to you.', 
+        expected: 'echo "I am in the machine"', 
+        hint: 'Type: echo "I am in the machine"',
+        output: 'I am in the machine\n\nMondo › There it is. You give the command, it executes. No UI, no clicking. Just raw text to metal. But right now, you don\'t know where you are. Let\'s map the room.'
+      },
+      { 
+        task: 'Map coordinates: Print working directory to find where you are standing.', 
+        expected: 'pwd', 
+        hint: 'Type: pwd',
+        output: '/home/jude'
+      },
+      { 
+        task: 'Inspect locks: List directory contents (including hidden files) to see permission locks.', 
+        expected: 'ls -la', 
+        hint: 'Type: ls -la',
+        output: 'total 24\ndrwxr-xr-x 2 jude users 4096 Jun  3 19:15 .\ndrwxr-xr-x 3 root root  4096 Jun  3 19:10 ..\n-rw-r--r-- 1 jude users  220 Jun  3 19:10 .bash_logout\n-rw-r--r-- 1 jude users 3771 Jun  3 19:10 .bashrc\n-rw-r--r-- 1 jude users  807 Jun  3 19:10 .profile\n-rw-r--r-- 1 jude users   32 Jun  3 19:15 secret_plans.txt\n\nMondo › You see those letters on the left? drwxr-xr-x? Those are locks. Some doors you can open. Some you can\'t. Let\'s try to bring something new into this system.'
+      },
+      { 
+        task: 'Search warehouse: Search the apt package repositories for "cmatrix".', 
+        expected: 'apt search cmatrix', 
+        hint: 'Type: apt search cmatrix',
+        output: 'Sorting... Done\nFull Text Search... Done\ncmatrix/noble 2.0-3 amd64\n  simulates the falling green code from The Matrix\n\nMondo › Found it. cmatrix simulates the falling green code from The Matrix. Pull it down. Install it.'
+      },
+      { 
+        task: 'The Bouncer: Try to install cmatrix without root permissions.', 
+        expected: 'apt install cmatrix', 
+        hint: 'Type: apt install cmatrix',
+        output: 'E: Could not open lock file /var/lib/dpkg/lock-frontend - open (13: Permission denied)\nE: Unable to acquire the dpkg frontend lock (/var/lib/dpkg/lock-frontend), are you root?\n\nMondo › Denied. You\'re just a standard user right now. The machine doesn\'t trust you to install software. You have to tell the machine that you are acting with the authority of the Super User. You need sudo (Super User DO). Try it again, but this time, speak with authority.'
+      },
+      { 
+        task: 'Elevate Authority: Install cmatrix using elevated sudo permissions.', 
+        expected: 'sudo apt install cmatrix', 
+        hint: 'Type: sudo apt install cmatrix',
+        output: 'Reading package lists... Done\nBuilding dependency tree... Done\nReading state information... Done\nThe following NEW packages will be installed:\n  cmatrix\n0 upgraded, 1 newly installed, 0 to remove.\nUnpacking cmatrix (2.0-3) ...\nSetting up cmatrix (2.0-3) ...\n\nMondo › The bouncer stepped aside. The software is installed. Run the program.'
+      },
+      { 
+        task: 'The Reward: Execute cmatrix to run the matrix code visualizer.', 
+        expected: 'cmatrix', 
+        hint: 'Type: cmatrix',
+        output: '▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊  ▊\n█  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋  ▋\n█  █  █  █  █  █  █  █  █  █  █  █  █  █  █  █\n\n[SUCCESS] cmatrix initiated.\n\nMondo › Yeah, that\'s it. You commanded it, you elevated your privileges, and you altered the environment. Hit Ctrl+C (or enter any command) to stop it when you\'re ready to learn how to weaponize this.'
+      }
+    ]
+  },
   {
     id: 'linux-1',
     title: 'Linux Basics: File Detective',
@@ -552,4 +606,32 @@ export const cyberLabs: Lab[] = [
       { task: 'Find main function', expected: 'Search for "main" in the Symbol Tree', hint: 'The main function usually contains the core logic.' }
     ]
   },
+  {
+    id: 'network-6',
+    title: 'Zero-Trust Networking with NetBird',
+    category: 'network',
+    difficulty: 'intermediate',
+    tools: ['netbird', 'ssh', 'wireguard'],
+    objective: 'Set up a zero-trust private mesh network to connect local and remote systems securely.',
+    scenario: 'You need to establish a secure connection between your local environment and a remote droplet without exposing ports to the public internet. Use NetBird to configure a private WireGuard-based mesh network.',
+    steps: [
+      { task: 'Install the NetBird client on your system', expected: 'curl -fsSL https://pkgs.netbird.io/install.sh | sh', hint: 'Run the official installation script with root privileges to download NetBird.' },
+      { task: 'Authenticate and start the NetBird service', expected: 'sudo netbird up', hint: 'This command initiates the daemon and prompts you with a URL to log in and register the device on your admin console.' },
+      { task: 'Check connection status and list mesh peers', expected: 'netbird status', hint: 'Use this command to view the interface IP, connection status, and active peers.' }
+    ]
+  },
+  {
+    id: 'python-6',
+    title: 'Polite Scraping: Token-Bucket Rate Limiter',
+    category: 'python',
+    difficulty: 'intermediate',
+    tools: ['python3', 'requests', 'time'],
+    objective: 'Implement a token-bucket rate limiting algorithm in Python for ethical web scraping.',
+    scenario: 'You are writing a scraper that must hit a target web server. To prevent overload and comply with ethical practices, implement a Token Bucket mechanism that limits request rates dynamically.',
+    steps: [
+      { task: 'Initialize token bucket properties', expected: 'self.capacity = 10; self.tokens = 10; self.fill_rate = 1.0; self.last_update = time.time()', hint: 'A class-based rate limiter needs attributes for capacity, current tokens, token fill rate per second, and the last update timestamp.' },
+      { task: 'Implement token consumption and refill logic', expected: 'now = time.time(); elapsed = now - self.last_update; self.tokens = min(self.capacity, self.tokens + elapsed * self.fill_rate)', hint: 'Calculate elapsed time, add refilled tokens to the bucket (capped at capacity), and update the timestamp.' },
+      { task: 'Implement token consumption check before making request', expected: 'if self.tokens >= 1: self.tokens -= 1; return True', hint: 'Check if at least one token is available, consume it, and allow the request. Otherwise, wait or deny.' }
+    ]
+  }
 ];

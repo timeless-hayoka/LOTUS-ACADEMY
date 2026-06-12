@@ -10,6 +10,7 @@ import Auth from './components/Auth';
 import CheatSheetHub from './components/CheatSheetHub';
 import LotusAcademy from './components/LotusAcademy';
 import NetworkMap from './components/NetworkMap';
+import Landing from './components/Landing';
 import { supabase } from './lib/supabase';
 
 import { LotusProvider } from './context/LotusContext';
@@ -269,26 +270,69 @@ function Dashboard() {
   );
 }
 
+function AppContent() {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user);
+      setLoading(false);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white font-mono">
+        Loading...
+      </div>
+    );
+  }
+
+  // If there is no logged in user, we want to route to Landing or Auth
+  if (!user) {
+    return (
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/auth" element={<Auth />} />
+        {/* Redirect any other path to landing */}
+        <Route path="*" element={<Landing />} />
+      </Routes>
+    );
+  }
+
+  // If user is logged in, show the full Dashboard / Sidebar app
+  return (
+    <div className="flex min-h-screen bg-slate-50 text-slate-800">
+      <Navigation />
+      <main className="ml-64 flex-1">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/os" element={<OSModule />} />
+          <Route path="/library" element={<Library />} />
+          <Route path="/cheatsheets" element={<CheatSheetHub />} />
+          <Route path="/labs" element={<Labs />} />
+          <Route path="/academy" element={<LotusAcademy />} />
+          <Route path="/network" element={<NetworkMap />} />
+          <Route path="/mentor" element={<Mentor />} />
+          {/* Redirect everything else to Dashboard */}
+          <Route path="*" element={<Dashboard />} />
+        </Routes>
+      </main>
+    </div>
+  );
+}
+
 function App() {
   return (
     <LotusProvider>
       <Router>
-        <div className="flex min-h-screen bg-slate-50">
-          <Navigation />
-          <main className="ml-64 flex-1">
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/os" element={<OSModule />} />
-              <Route path="/library" element={<Library />} />
-              <Route path="/cheatsheets" element={<CheatSheetHub />} />
-              <Route path="/labs" element={<Labs />} />
-              <Route path="/academy" element={<LotusAcademy />} />
-              <Route path="/network" element={<NetworkMap />} />
-              <Route path="/mentor" element={<Mentor />} />
-              <Route path="/auth" element={<Auth />} />
-            </Routes>
-          </main>
-        </div>
+        <AppContent />
       </Router>
     </LotusProvider>
   );

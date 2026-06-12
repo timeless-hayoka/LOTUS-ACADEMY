@@ -23,9 +23,11 @@ export default function NetworkMap() {
     'SERVER-01': { rssi: -71, coords: { x: 90, y: 120, dist: 6.5 } }
   };
 
+  const NET_BACKEND = import.meta.env.VITE_NET_BACKEND_URL || 'http://localhost:8888';
+
   const fetchLiveData = async () => {
     try {
-      const response = await fetch('http://localhost:8888/live_network_data.json');
+      const response = await fetch(`${NET_BACKEND}/live_network_data.json`);
       if (response.ok) {
         const data = await response.json();
         setNodes(data);
@@ -33,10 +35,10 @@ export default function NetworkMap() {
         setNodes(demoNodes);
       }
       
-      const exResponse = await fetch('http://localhost:8888/exfil_results.json');
+      const exResponse = await fetch(`${NET_BACKEND}/exfil_results.json`);
       if (exResponse.ok) setExfilResults(await exResponse.json());
 
-      const gpsResponse = await fetch('http://localhost:8888/live_gps_data.json');
+      const gpsResponse = await fetch(`${NET_BACKEND}/live_gps_data.json`);
       if (gpsResponse.ok) {
         setGpsData(await gpsResponse.json());
       } else {

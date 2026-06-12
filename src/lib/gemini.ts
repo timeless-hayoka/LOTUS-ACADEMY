@@ -7,9 +7,11 @@ if (!apiKey) {
 }
 export const genAI = apiKey ? new GoogleGenAI({ apiKey }) : null;
 
+const VOICE_SERVER_URL = import.meta.env.VITE_VOICE_SERVER_URL || 'http://localhost:9091';
+
 export const speak = async (text: string) => {
   try {
-    const response = await fetch('http://192.168.0.199:9091/speak', {
+    const response = await fetch(`${VOICE_SERVER_URL}/speak`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text })
